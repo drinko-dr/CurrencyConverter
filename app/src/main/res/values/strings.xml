@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Currency Converter</string>
+    <string name="null_placehold">0.00</string>
+    <string-array name="Currency">
+        <item>USD</item>
+        <item>RUB</item>
+        <item>EUR</item>
+    </string-array>
 </resources>
