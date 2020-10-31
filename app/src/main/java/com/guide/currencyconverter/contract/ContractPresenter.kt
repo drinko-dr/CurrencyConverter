@@ -8,4 +8,5 @@ interface ContractPresenter {
     fun getCurrencyResult()
     fun onChangeCurrencyFrom()
     fun onChangeCurrencyTo()
+    fun showResult(result: String)
 }

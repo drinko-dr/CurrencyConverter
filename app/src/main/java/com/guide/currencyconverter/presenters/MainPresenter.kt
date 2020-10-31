@@ -18,7 +18,7 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     init {
         this.mView = _mView
-        this.mModel = MainModel()
+        this.mModel = MainModel(this)
         default()
     }
 
@@ -27,21 +27,22 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
         this.currencyFrom = this.mView?.getLeftCurrency()
         this.currencyTo = this.mView?.getRightCurrency()
         this.countCurrency = this.mView?.getCountCurrency()
-        getCurrencyResult()
     }
 
     override fun getCurrencyResult(){
-        result = mModel?.loadMessage(this.currencyFrom, this.currencyTo,this.countCurrency)
-        mView?.showText(result)
+        mModel?.loadMessage(this.currencyFrom, this.currencyTo,this.countCurrency)
     }
 
     override fun onChangeCurrencyFrom() {
-        currencyFrom = mView?.getLeftCurrency()
+        this.currencyFrom = mView?.getLeftCurrency()
+        getCurrencyResult()
 
     }
 
     override fun onChangeCurrencyTo() {
-        currencyFrom = mView?.getRightCurrency()
+        this.currencyTo = mView?.getRightCurrency()
+        getCurrencyResult()
+
     }
 
     override fun onDestroy() {
@@ -49,7 +50,10 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     override fun swapCurrency() {
         mView?.swapCurrency()
-        getCurrencyResult()
+    }
+
+    override fun showResult(result: String){
+        mView?.showText(result)
     }
 
     override fun refresh() {

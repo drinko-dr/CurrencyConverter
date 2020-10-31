@@ -5,6 +5,6 @@ interface ContractModel {
         currencyFrom: String?,
         currencyTo: String?,
         countCurrency: String?
-    ): String?
+    )
     fun defautl()
 }

@@ -1,9 +1,13 @@
 package com.guide.currencyconverter.models
 
-import android.util.ArrayMap
+data class Currency(
+    val base: String,
+    val date: String,
+    val rates: Rates
+)
 
-data class Currency (
-    var rates: ArrayMap<String, String>? = null,
-    var base: String? = null,
-    var date: String? = null
+data class Rates(
+    val EUR: Double,
+    val RUB: Double,
+    val USD: Double
 )
