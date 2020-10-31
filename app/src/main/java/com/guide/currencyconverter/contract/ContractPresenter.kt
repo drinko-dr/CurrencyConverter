@@ -1,6 +1,11 @@
 package com.guide.currencyconverter.contract
 
 interface ContractPresenter {
-    fun onButtonWasClicked()
     fun onDestroy()
+    fun swapCurrency()
+    fun refresh()
+    fun default()
+    fun getCurrencyResult()
+    fun onChangeCurrencyFrom()
+    fun onChangeCurrencyTo()
 }
