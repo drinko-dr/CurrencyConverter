@@ -21,8 +21,11 @@ class MainActivity : AppCompatActivity(), ContractView {
 
     private var mPresenter: ContractPresenter? = null
     private var mSwapBtn: ImageButton? = null
-    private var mRefreshBtn: Button? = null
+    private var mDateTextView: TextView? = null
+    private var mRefreshBtn: ImageButton? = null
     private var mLeftTextView: EditText? = null
+
+
     private var mRightTextView: EditText? = null
     private var leftSpinner: Spinner? = null
     private var rightSpinner: Spinner? = null
@@ -35,7 +38,8 @@ class MainActivity : AppCompatActivity(), ContractView {
         mLeftTextView = findViewById(R.id.left_textbox_view)
         mRightTextView = findViewById(R.id.right_textbox_view)
         mSwapBtn = findViewById(R.id.swap_btn_view)
-//        mRefreshBtn = findViewById(R.id.button_view)
+        mDateTextView = findViewById(R.id.dateRefresh_text_view)
+        mRefreshBtn = findViewById(R.id.refresh_cache_btn_view)
 
         leftSpinner = findViewById(R.id.left_spinner_view)
         rightSpinner= findViewById(R.id.right_spinner_view)
@@ -58,8 +62,8 @@ class MainActivity : AppCompatActivity(), ContractView {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                isSwap = false
                 mPresenter!!.onChangeCurrencyTo()
+                isSwap = false
             }
 
         }
@@ -82,6 +86,16 @@ class MainActivity : AppCompatActivity(), ContractView {
             }
 
         } )
+
+
+        mRefreshBtn?.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                mPresenter!!.refresh()
+            }
+
+        } )
+
+
 
     }
 
@@ -135,5 +149,10 @@ class MainActivity : AppCompatActivity(), ContractView {
     override fun isConnectedToNetwork(){
         val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         Variables.isNetworkConnected =  connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting() ?: false
+    }
+
+    override fun refreshCache(dateModif: String) {
+        var text = mDateTextView?.text as String
+        mDateTextView?.setText(text + dateModif)
     }
 }

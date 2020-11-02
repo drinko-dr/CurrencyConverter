@@ -1,13 +1,7 @@
-package com.guide.currencyconverter.Retrofit
+package com.guide.currencyconverter.httpConnection
 
-import android.net.http.HttpResponseCache
-import android.util.Log
-import com.guide.currencyconverter.Common.Variables
-import okhttp3.Cache
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 
 
 //ConnectivityManager.NetworkCallback().onUnavailable()

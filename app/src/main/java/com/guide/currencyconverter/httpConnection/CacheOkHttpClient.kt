@@ -1,4 +1,4 @@
-package com.guide.currencyconverter.Retrofit
+package com.guide.currencyconverter.httpConnection
 
 import com.guide.currencyconverter.Common.Variables
 import okhttp3.Cache
@@ -9,8 +9,7 @@ object CacheOkHttpClient {
     val CACHE_SIZE = 1 * 1024 * 1024.toLong() // 1 MB
 
     val cacheDir =
-        File(System.getProperty("java.io.tmpdir"), "cache_file")
-
+        File(System.getProperty("java.io.tmpdir"), "http_cache")
     val cache = Cache(cacheDir, CACHE_SIZE)
 
     val client: OkHttpClient
@@ -18,6 +17,10 @@ object CacheOkHttpClient {
         .cache(cache)
         .addInterceptor { chain ->
             var request = chain.request()
+//            if (Variables.isRefresh){
+//                request.newBuilder().header("Cache-Control", "public, max-age=0").build()
+//                Variables.isRefresh = false
+//            }else
             request = if (Variables.isNetworkConnected)
                 request.newBuilder().header("Cache-Control", "public, max-age=" + 60 * 60 * 4 * 1).build()
             else

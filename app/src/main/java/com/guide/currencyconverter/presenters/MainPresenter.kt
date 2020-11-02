@@ -1,10 +1,14 @@
 package com.guide.currencyconverter.presenters
 
 import android.util.Log
+import com.guide.currencyconverter.Common.Variables
 import com.guide.currencyconverter.contract.ContractModel
 import com.guide.currencyconverter.contract.ContractPresenter
 import com.guide.currencyconverter.contract.ContractView
 import com.guide.currencyconverter.models.MainModel
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
@@ -24,6 +28,7 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     override fun default() {
         mView?.default()
+        mView?.refreshCache(getLastModDate())
         this.currencyFrom = this.mView?.getLeftCurrency()
         this.currencyTo = this.mView?.getRightCurrency()
         this.countCurrency = this.mView?.getCountCurrency()
@@ -48,6 +53,7 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     }
 
     override fun onDestroy() {
+
     }
 
     override fun swapCurrency() {
@@ -59,6 +65,16 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     }
 
     override fun refresh() {
+        Variables.isRefresh = true
+        getCurrencyResult()
+        mView?.refreshCache(getLastModDate())
+    }
+
+    fun getLastModDate():String{
+        val file = File(System.getProperty("java.io.tmpdir"),"http_cache")
+        val lastModDate = SimpleDateFormat("dd/MM/yyyy/hh:mm")
+
+        return lastModDate.format(file.lastModified())
     }
 
     override fun showError() {

@@ -53,7 +53,6 @@ class MainModel(_mPresenter: ContractPresenter) : ContractModel {
                         .rates
                         .get(to) )
                     )
-                    mPresenter?.showError()
 
                 }
 

@@ -11,4 +11,5 @@ interface ContractView {
     fun getCountCurrency(): String
     fun showError()
     fun isConnectedToNetwork()
+    fun refreshCache(dateModif: String)
 }
