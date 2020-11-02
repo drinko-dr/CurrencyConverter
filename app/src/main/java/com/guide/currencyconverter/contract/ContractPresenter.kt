@@ -6,7 +6,8 @@ interface ContractPresenter {
     fun refresh()
     fun default()
     fun getCurrencyResult()
-    fun onChangeCurrencyFrom()
+    fun onChangeCurrencyFrom(isSwap: Boolean)
     fun onChangeCurrencyTo()
     fun showResult(result: String)
+    fun showError()
 }

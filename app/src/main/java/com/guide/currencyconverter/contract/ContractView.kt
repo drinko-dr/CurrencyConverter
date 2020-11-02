@@ -1,5 +1,7 @@
 package com.guide.currencyconverter.contract
 
+import okhttp3.OkHttpClient
+
 interface ContractView {
     fun showText(message: String?)
     fun swapCurrency()
@@ -7,4 +9,6 @@ interface ContractView {
     fun getLeftCurrency(): String
     fun getRightCurrency(): String
     fun getCountCurrency(): String
+    fun showError()
+    fun isConnectedToNetwork()
 }

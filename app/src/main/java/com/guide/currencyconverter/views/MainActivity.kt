@@ -1,5 +1,8 @@
 package com.guide.currencyconverter.views
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,10 +11,10 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.guide.currencyconverter.R
+import com.guide.currencyconverter.Common.Variables
 import com.guide.currencyconverter.contract.ContractPresenter
 import com.guide.currencyconverter.contract.ContractView
 import com.guide.currencyconverter.presenters.MainPresenter
-import java.lang.reflect.Array
 
 
 class MainActivity : AppCompatActivity(), ContractView {
@@ -23,11 +26,12 @@ class MainActivity : AppCompatActivity(), ContractView {
     private var mRightTextView: EditText? = null
     private var leftSpinner: Spinner? = null
     private var rightSpinner: Spinner? = null
+    private var isSwap: Boolean = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         mLeftTextView = findViewById(R.id.left_textbox_view)
         mRightTextView = findViewById(R.id.right_textbox_view)
         mSwapBtn = findViewById(R.id.swap_btn_view)
@@ -38,11 +42,15 @@ class MainActivity : AppCompatActivity(), ContractView {
 
         mPresenter = MainPresenter(this)
 
+
+        Log.i("internet",  isConnectedToNetwork().toString())
+
+
         leftSpinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                mPresenter!!.onChangeCurrencyFrom()
+                mPresenter!!.onChangeCurrencyFrom(isSwap)
             }
 
         }
@@ -50,6 +58,7 @@ class MainActivity : AppCompatActivity(), ContractView {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                isSwap = false
                 mPresenter!!.onChangeCurrencyTo()
             }
 
@@ -80,7 +89,7 @@ class MainActivity : AppCompatActivity(), ContractView {
         var temp = leftSpinner!!.selectedItemPosition
         leftSpinner?.setSelection(rightSpinner!!.selectedItemPosition)
         rightSpinner?.setSelection(temp)
-
+        isSwap = true
     }
 
     override fun showText(message: String?) {
@@ -93,6 +102,8 @@ class MainActivity : AppCompatActivity(), ContractView {
     }
 
     override fun default(){
+        isConnectedToNetwork()
+        mLeftTextView?.setText("1")
         var currencyList = resources.getStringArray(R.array.Currency)
         if( leftSpinner != null && rightSpinner != null ){
             val adapter = ArrayAdapter(this, R.layout.spinner_row, currencyList)
@@ -101,6 +112,8 @@ class MainActivity : AppCompatActivity(), ContractView {
             rightSpinner!!.adapter = adapter
         }
     }
+
+
 
     override fun getLeftCurrency(): String {
         return leftSpinner?.getSelectedItem().toString()
@@ -111,5 +124,16 @@ class MainActivity : AppCompatActivity(), ContractView {
     }
     override fun getCountCurrency(): String{
         return mLeftTextView?.text.toString()
+    }
+
+    override fun showError(){
+        Toast.makeText(applicationContext,
+            "Что то пошло не так, проверьте подключение к интернету или попытайтесь позднее", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun isConnectedToNetwork(){
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        Variables.isNetworkConnected =  connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting() ?: false
     }
 }

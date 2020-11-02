@@ -30,12 +30,14 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     }
 
     override fun getCurrencyResult(){
+        mView?.isConnectedToNetwork()
         mModel?.loadMessage(this.currencyFrom, this.currencyTo,this.countCurrency)
     }
 
-    override fun onChangeCurrencyFrom() {
+    override fun onChangeCurrencyFrom(isSwap: Boolean) {
         this.currencyFrom = mView?.getLeftCurrency()
-        getCurrencyResult()
+        if (!isSwap)
+            getCurrencyResult()
 
     }
 
@@ -57,6 +59,10 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     }
 
     override fun refresh() {
+    }
+
+    override fun showError() {
+        mView?.showError()
     }
 
 }

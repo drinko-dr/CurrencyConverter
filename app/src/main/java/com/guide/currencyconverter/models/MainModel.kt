@@ -3,12 +3,11 @@ package com.guide.currencyconverter.models
 import android.util.Log
 import com.guide.currencyconverter.Common.Common
 import com.guide.currencyconverter.InterfaceServices.RetrofitServices
-import com.guide.currencyconverter.Retrofit.RetrofitClient
+import com.guide.currencyconverter.Common.Variables
 import com.guide.currencyconverter.contract.ContractModel
 import com.guide.currencyconverter.contract.ContractPresenter
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 
 class MainModel(_mPresenter: ContractPresenter) : ContractModel {
@@ -27,29 +26,42 @@ class MainModel(_mPresenter: ContractPresenter) : ContractModel {
     ){
 
          mServices = Common.retrofitService
-        getCurrencyList(currencyFrom.toString())
+        getCurrencyList(currencyFrom.toString(), currencyTo.toString())
+        
     }
 
 
-    fun getCurrencyList(from:String){
+    private fun getCurrencyList(from:String, to: String){
+        Log.i("model getCurrencyList()", from)
+        Log.i("check inet", Variables.isNetworkConnected.toString())
+
         mServices?.getCurrencyList(from)?.enqueue(object: retrofit2.Callback<Currency> {
             override fun onFailure(call: Call<Currency>, t: Throwable) {
                 Log.i("model", "fail")
                 Log.i("model", t.message)
+                mPresenter?.showError()
             }
 
             override fun onResponse(
                 call: Call<Currency>,
                 response: Response<Currency>
             ) {
-                Log.i("model", "text")
 
-                Log.i("model", (response.body() as Currency).rates.EUR.toString())
-                mPresenter?.showResult(response.message())
+                if (response.isSuccessful){
+                    Log.i("model response", (response.body() as Currency).rates.get(to).toString())
+                    mPresenter?.showResult(String.format("%.4f", (response.body() as Currency)
+                        .rates
+                        .get(to) )
+                    )
+                    mPresenter?.showError()
+
+                }
+
             }
 
         })
     }
+
 
 
 
