@@ -1,6 +1,5 @@
 package com.guide.currencyconverter.views
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -15,21 +14,23 @@ import com.guide.currencyconverter.Common.Variables
 import com.guide.currencyconverter.contract.ContractPresenter
 import com.guide.currencyconverter.contract.ContractView
 import com.guide.currencyconverter.presenters.MainPresenter
+import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity(), ContractView {
 
     private var mPresenter: ContractPresenter? = null
+    private var isSwap: Boolean = true
+
     private var mSwapBtn: ImageButton? = null
-    private var mDateTextView: TextView? = null
     private var mRefreshBtn: ImageButton? = null
+
+    private var mDateTextView: TextView? = null
     private var mLeftTextView: EditText? = null
+    private var mRightTextView: TextView? = null
 
-
-    private var mRightTextView: EditText? = null
     private var leftSpinner: Spinner? = null
     private var rightSpinner: Spinner? = null
-    private var isSwap: Boolean = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity(), ContractView {
         mPresenter = MainPresenter(this)
 
 
-        Log.i("internet",  isConnectedToNetwork().toString())
 
 
         leftSpinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
@@ -70,9 +70,12 @@ class MainActivity : AppCompatActivity(), ContractView {
 
 
         mLeftTextView?.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 mPresenter!!.getCurrencyResult()
@@ -100,20 +103,18 @@ class MainActivity : AppCompatActivity(), ContractView {
     }
 
     override fun swapCurrency() {
-        var temp = leftSpinner!!.selectedItemPosition
-        leftSpinner?.setSelection(rightSpinner!!.selectedItemPosition)
-        rightSpinner?.setSelection(temp)
-        isSwap = true
+        if (leftSpinner!!.selectedItemPosition != rightSpinner!!.selectedItemPosition){
+            var temp = leftSpinner!!.selectedItemPosition
+            leftSpinner?.setSelection(rightSpinner!!.selectedItemPosition)
+            rightSpinner?.setSelection(temp)
+            isSwap = true
+        }
     }
 
     override fun showText(message: String?) {
         mRightTextView?.setText(message)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mPresenter?.onDestroy()
-    }
 
     override fun default(){
         isConnectedToNetwork()
@@ -152,7 +153,7 @@ class MainActivity : AppCompatActivity(), ContractView {
     }
 
     override fun refreshCache(dateModif: String) {
-        var text = mDateTextView?.text as String
-        mDateTextView?.setText(text + dateModif)
+        var text = applicationContext.getString(R.string.dateRefresh)
+        mDateTextView?.setText("$text $dateModif")
     }
 }

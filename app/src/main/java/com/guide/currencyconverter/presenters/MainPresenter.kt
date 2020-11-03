@@ -15,7 +15,6 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     private var mView: ContractView? = null
     private var mModel: ContractModel? = null
 
-    private var result: String? = null
     private var currencyFrom: String? = null
     private var currencyTo: String? = null
     private var countCurrency: String? = null
@@ -28,15 +27,16 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     override fun default() {
         mView?.default()
-        mView?.refreshCache(getLastModDate())
         this.currencyFrom = this.mView?.getLeftCurrency()
         this.currencyTo = this.mView?.getRightCurrency()
         this.countCurrency = this.mView?.getCountCurrency()
+        mView?.refreshCache(getLastModDate())
     }
 
     override fun getCurrencyResult(){
+        this.countCurrency = this.mView?.getCountCurrency()
         mView?.isConnectedToNetwork()
-        mModel?.loadMessage(this.currencyFrom, this.currencyTo,this.countCurrency)
+        mModel?.loadMessage(this.currencyFrom, this.currencyTo)
     }
 
     override fun onChangeCurrencyFrom(isSwap: Boolean) {
@@ -52,16 +52,20 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     }
 
-    override fun onDestroy() {
-
-    }
 
     override fun swapCurrency() {
         mView?.swapCurrency()
     }
 
-    override fun showResult(result: String){
+    fun showResult(result: String){
         mView?.showText(result)
+    }
+
+    override fun calcResult(msg: Double?){
+        if ( !countCurrency!!.isEmpty() && msg != null ){
+            val result = countCurrency!!.toDouble() * msg.toDouble()
+            showResult(String.format("%.3f", result))
+        }
     }
 
     override fun refresh() {
@@ -72,8 +76,11 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
 
     fun getLastModDate():String{
         val file = File(System.getProperty("java.io.tmpdir"),"http_cache")
-        val lastModDate = SimpleDateFormat("dd/MM/yyyy/hh:mm")
+        val lastModDate = SimpleDateFormat("d MMM yyyy г. - HH:mm", Locale("ru"))
 
+        if (file.length().toInt() == 0){
+            return lastModDate.format(Date())
+        }
         return lastModDate.format(file.lastModified())
     }
 

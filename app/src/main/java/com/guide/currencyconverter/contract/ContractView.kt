@@ -1,6 +1,5 @@
 package com.guide.currencyconverter.contract
 
-import okhttp3.OkHttpClient
 
 interface ContractView {
     fun showText(message: String?)

@@ -16,12 +16,11 @@ object CacheOkHttpClient {
     get() = OkHttpClient.Builder()
         .cache(cache)
         .addInterceptor { chain ->
-            var request = chain.request()
-//            if (Variables.isRefresh){
-//                request.newBuilder().header("Cache-Control", "public, max-age=0").build()
-//                Variables.isRefresh = false
-//            }else
-            request = if (Variables.isNetworkConnected)
+            val request = chain.request()
+            if (Variables.isRefresh){
+                request.newBuilder().header("Cache-Control", "public, max-age=10").build()
+                Variables.isRefresh = false
+            }else if (Variables.isNetworkConnected)
                 request.newBuilder().header("Cache-Control", "public, max-age=" + 60 * 60 * 4 * 1).build()
             else
                 request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()

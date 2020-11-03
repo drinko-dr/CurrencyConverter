@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="24dp"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:text="@string/dateRefresh"
             android:id="@+id/dateRefresh_text_view"
             />
@@ -66,6 +66,7 @@
             android:id="@+id/left_textbox_view"
             android:padding="8dp"
             android:hint="@string/null_placehold"
+            android:inputType="numberDecimal"
             android:background="@drawable/edit_text_border"
             android:layout_alignParentStart="true" />
         <ImageButton
@@ -78,11 +79,12 @@
             android:layout_centerVertical="true"
             android:id="@+id/refresh_cache_btn_view"
             />
-        <EditText
+        <TextView
             android:layout_width="100dp"
             android:layout_height="38dp"
             android:layout_alignParentRight="true"
             android:padding="8dp"
+            android:textSize="16sp"
             android:id="@+id/right_textbox_view"
             android:hint="@string/null_placehold"
             android:background="@drawable/edit_text_border"
