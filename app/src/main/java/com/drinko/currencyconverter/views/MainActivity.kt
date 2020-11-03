@@ -1,20 +1,18 @@
-package com.guide.currencyconverter.views
+package com.drinko.currencyconverter.views
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.guide.currencyconverter.R
-import com.guide.currencyconverter.Common.Variables
-import com.guide.currencyconverter.contract.ContractPresenter
-import com.guide.currencyconverter.contract.ContractView
-import com.guide.currencyconverter.presenters.MainPresenter
-import org.w3c.dom.Text
+import com.drinko.currencyconverter.R
+import com.drinko.currencyconverter.Common.Variables
+import com.drinko.currencyconverter.contract.ContractPresenter
+import com.drinko.currencyconverter.contract.ContractView
+import com.drinko.currencyconverter.presenters.MainPresenter
 
 
 class MainActivity : AppCompatActivity(), ContractView {

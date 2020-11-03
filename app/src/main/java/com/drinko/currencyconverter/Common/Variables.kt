@@ -1,4 +1,4 @@
-package com.guide.currencyconverter.Common
+package com.drinko.currencyconverter.Common
 
 object Variables {
     var isNetworkConnected = false

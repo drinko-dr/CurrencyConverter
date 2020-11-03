@@ -1,11 +1,10 @@
-package com.guide.currencyconverter.presenters
+package com.drinko.currencyconverter.presenters
 
-import android.util.Log
-import com.guide.currencyconverter.Common.Variables
-import com.guide.currencyconverter.contract.ContractModel
-import com.guide.currencyconverter.contract.ContractPresenter
-import com.guide.currencyconverter.contract.ContractView
-import com.guide.currencyconverter.models.MainModel
+import com.drinko.currencyconverter.Common.Variables
+import com.drinko.currencyconverter.contract.ContractModel
+import com.drinko.currencyconverter.contract.ContractPresenter
+import com.drinko.currencyconverter.contract.ContractView
+import com.drinko.currencyconverter.models.MainModel
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

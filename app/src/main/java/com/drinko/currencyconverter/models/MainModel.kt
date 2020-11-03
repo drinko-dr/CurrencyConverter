@@ -1,9 +1,9 @@
-package com.guide.currencyconverter.models
+package com.drinko.currencyconverter.models
 
-import com.guide.currencyconverter.Common.Common
-import com.guide.currencyconverter.InterfaceServices.RetrofitServices
-import com.guide.currencyconverter.contract.ContractModel
-import com.guide.currencyconverter.contract.ContractPresenter
+import com.drinko.currencyconverter.Common.Common
+import com.drinko.currencyconverter.InterfaceServices.RetrofitServices
+import com.drinko.currencyconverter.contract.ContractModel
+import com.drinko.currencyconverter.contract.ContractPresenter
 import retrofit2.Call
 import retrofit2.Response
 

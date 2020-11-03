@@ -1,4 +1,4 @@
-package com.guide.currencyconverter.httpConnection
+package com.drinko.currencyconverter.httpConnection
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

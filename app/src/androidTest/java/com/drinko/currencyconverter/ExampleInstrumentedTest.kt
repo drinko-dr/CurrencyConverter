@@ -1,4 +1,4 @@
-package com.guide.currencyconverter
+package com.drinko.currencyconverter
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

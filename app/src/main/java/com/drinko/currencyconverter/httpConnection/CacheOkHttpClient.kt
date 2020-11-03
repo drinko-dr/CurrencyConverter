@@ -1,6 +1,6 @@
-package com.guide.currencyconverter.httpConnection
+package com.drinko.currencyconverter.httpConnection
 
-import com.guide.currencyconverter.Common.Variables
+import com.drinko.currencyconverter.Common.Variables
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File

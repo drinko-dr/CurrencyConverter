@@ -1,4 +1,4 @@
-package com.guide.currencyconverter.contract
+package com.drinko.currencyconverter.contract
 
 interface ContractPresenter {
     fun swapCurrency()

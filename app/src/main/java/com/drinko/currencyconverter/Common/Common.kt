@@ -1,7 +1,7 @@
-package com.guide.currencyconverter.Common
+package com.drinko.currencyconverter.Common
 
-import com.guide.currencyconverter.InterfaceServices.RetrofitServices
-import com.guide.currencyconverter.httpConnection.RetrofitClient
+import com.drinko.currencyconverter.InterfaceServices.RetrofitServices
+import com.drinko.currencyconverter.httpConnection.RetrofitClient
 
 object Common{
     private val BASE_URL = "https://api.exchangeratesapi.io/"

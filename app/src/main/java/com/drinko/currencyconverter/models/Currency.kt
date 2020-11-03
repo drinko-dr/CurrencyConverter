@@ -1,4 +1,4 @@
-package com.guide.currencyconverter.models
+package com.drinko.currencyconverter.models
 
 import android.util.ArrayMap
 

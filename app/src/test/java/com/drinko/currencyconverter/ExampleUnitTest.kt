@@ -1,4 +1,4 @@
-package com.guide.currencyconverter
+package com.drinko.currencyconverter
 
 import org.junit.Test
 

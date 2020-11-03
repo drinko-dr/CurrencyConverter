@@ -1,5 +1,5 @@
-package com.guide.currencyconverter.InterfaceServices
-import com.guide.currencyconverter.models.Currency
+package com.drinko.currencyconverter.InterfaceServices
+import com.drinko.currencyconverter.models.Currency
 import retrofit2.Call
 import retrofit2.http.*
 
