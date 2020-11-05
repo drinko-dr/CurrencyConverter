@@ -61,8 +61,11 @@ class MainPresenter(_mView: ContractView) : ContractPresenter  {
     }
 
     override fun calcResult(msg: Double?){
-        if ( !countCurrency!!.isEmpty() && msg != null ){
-            val result = countCurrency!!.toDouble() * msg.toDouble()
+        var res = msg
+        if ( this.currencyFrom == this.currencyTo && msg == null )
+            res = 1.00
+        if ( !countCurrency!!.isEmpty()){
+            val result = countCurrency!!.toDouble() * res!!
             showResult(String.format("%.3f", result))
         }
     }
